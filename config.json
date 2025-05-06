@@ -1,0 +1,22 @@
+{
+  "monitoring": {
+    "check_interval": 30,
+    "log_file_path": "/var/log/wan-monitor.log",
+    "wan_interfaces": ["wan", "wan2", "eth8", "eth9"]
+  },
+  "unifi_api": {
+    "host": "localhost",
+    "port": 443,
+    "api_prefix": "/proxy/network",
+    "username": "your-username",
+    "password": "your-password",
+    "site_id": "default"
+  },
+  "events": {
+    "new_interface": "EVT_WAN_NewInterface",
+    "reconnected": "EVT_WAN_Reconnected",
+    "disconnected": "EVT_WAN_Disconnected",
+    "ip_changed": "EVT_WAN_IPChanged",
+    "gateway_changed": "EVT_WAN_GatewayChanged"
+  }
+}
