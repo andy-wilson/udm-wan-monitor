@@ -1,4 +1,7 @@
-# UDM WAN Monitor - Deployment Instructions
+# UDM WAN Monitor
+
+A tool to enable notifications of status changes to WAN interfaces of a Unifi Dream Machine. In my case the UDM-SE, but this will work for all UDM flavours. 
+Notofications come in the form of a UniFi Event Message, so that will be a Push Notification or Email, based upon whatever you've got configured for status notifications. 
 
 This guide explains how to compile, deploy, and configure the WAN interface monitor on your UniFi Dream Machine (SE/PRO/MAX).
 
@@ -7,26 +10,23 @@ This guide explains how to compile, deploy, and configure the WAN interface moni
 - Go installed on your development machine (Mac, Linux, or Windows)
 - SSH access to your UDM-SE/PRO/MAX
 - UniFi account with administrative privileges
-- You'll want to create a new UDM console user for the service to authenticate via. Ideally with least privileges
+- A new UDM user for the service to authenticate via. Ideally with least privileges, View appears to be the least available :/
 
 ## Step 1: Compile the Application
 
 ### On macOS ARM (M1/M2/M3)
 
 ```bash
-# Create a directory for your project
-mkdir -p ~/udm-wan-monitor
-cd ~/udm-wan-monitor
-
-# Copy both main.go and config.json files into this directory
-# [Copy the files from the artifacts]
+# clone the repo
+git clone https://github.com/andy-wilson/udm-wan-monitor.git
+cd udm-wan-monitor
 
 # Set the environment variables for cross-compilation
 export GOOS=linux
 export GOARCH=arm64
 export CGO_ENABLED=0
 
-# Compile the script
+# Compile the tool
 go build -o udm-wan-monitor main.go
 
 # The compiled binary will be created in the current directory
@@ -66,16 +66,16 @@ vi config.json
 
 Update the following values in the config file:
 
-- `username`: Your UniFi admin username
-- `password`: Your UniFi admin password
+- `username`: Your UniFi account username
+- `password`: Your UniFi account password
 - Adjust any other settings as needed
 
-Note: Given this needs "admin" credentials, I'd suggest you create a "View" user. 
-Network-> Setting-> Admins & Users -> Create New Admin
+Note: Given this needs "admin" access credentials, I'd suggest you create a "View" user. 
+In the UniFi UI, head to Network-> Setting-> Admins & Users -> Create New Admin
 On the box on the right, select the checkbox for "Restrict to Local Access Only".
-Uncheck "Use a Predefined Role"
-Next to the Target icon, select View Only (the default is Full Management, which is bad)
-Next to the User icon, select "None" (anything else is bad)
+Uncheck "Use a Predefined Role".
+Next to the Target icon, select View Only (the default is Full Management, which is bad).
+Next to the User icon, select "None" (anything else is bad).
 
 ## Step 4: Test the Application
 
@@ -137,7 +137,7 @@ If you encounter issues:
 2. Verify the service is running: `systemctl status udm-wan-monitor.service`
 3. Try running the application manually with `-config` flag
 4. Check if your UniFi credentials are correct
-5. Ensure your UDM-SE firmware is up to date
+5. Ensure your UDM firmware is up to date
 
 ## Making Updates
 
