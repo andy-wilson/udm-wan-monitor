@@ -1,7 +1,7 @@
 # UDM WAN Monitor
 
 A tool to enable notifications of status changes to WAN interfaces of a Unifi Dream Machine. In my case the UDM-SE, but this will work for all UDM flavours. 
-Notofications come in the form of a UniFi Event Message, so that will be a Push Notification or Email, based upon whatever you've got configured for status notifications. 
+Notifications come in the form of a UniFi Event Message, so that will be a Push Notification or Email, based upon whatever you've got configured for status notifications. 
 
 This guide explains how to compile, deploy, and configure the WAN interface monitor on your UniFi Dream Machine (SE/PRO/MAX).
 
